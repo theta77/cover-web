@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoverWeb</title>
+    <link rel="stylesheet" href="{% static 'chvideo.css' %}">
+</head>
+<body>
+    <h1>업로드</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message.message}}</p>
+        {% endfor %}
+    {% endif %}
+    {% if request.user.username == video.username %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table border="1">
+                <tr>
+                    <th>제목</th>
+                    <th><input name="sub" type="text" value="{{video.sub}}"></th>
+                </tr>
+                <tr>
+                    <th>설명</th>
+                    <th><input name="info" type="text" value="{{video.info}}"></th>
+                </tr>
+                <tr>
+                    <th>썸네일</th>
+                    <th><input name="thumbnail" type="file" value="{{video.thumbnail.url}}"></th>
+                </tr>
+                <tr>
+                    <th>영상</th>
+                    <th><input name="video" type="file" value="{{video.video}}"></th>
+                </tr>
+                <tr>
+                    <th>장르</th>
+                    <th>
+                        <select name="genre">
+                            {% for i in genre %}
+                                {% if video.genre == i %}
+                                    <option value="{{i}}" selected>{{i}}</option>
+                                {% else %}
+                                    <option value="{{i}}">{{i}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2"><button>✔️</button></th>
+                </tr>
+            </table>
+        </form>
+        <table border="0" class="button">
+            <tr>
+                <th><a href="{% url 'delvideo' video.idx %}"><button class="delete" onclick="return confirm('정말 삭제하시겠습니까?')">🗑️</button></a></th>
+    {% else %}
+        <h2>권한 없음</h2>
+    {% endif %}
+            <th><a href="{% url 'watch' video.idx %}">⏎</a></th>
+        </tr>
+    </table>
+</body>
+</html>

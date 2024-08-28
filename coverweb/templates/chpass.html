@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoverWeb</title>
+    <link rel="stylesheet" href="{% static 'chpass.css' %}">
+</head>
+<body>
+    <h1>비밀번호 변경</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message.message}}</p>
+        {% endfor %}
+    {% endif %}
+    <form method="post" name="userinfo">
+        {% csrf_token %}
+        <table border="1">
+            <tr>
+                <th>현재 비밀번호</th>
+                <th><input name="opass" type="password" value="{{opassword}}"></th>
+            </tr>
+            <tr>
+                <th>새로운 비밀번호</th>
+                <th><input name="npass" type="password" value="{{npassword}}"></th>
+            </tr>
+            <tr>
+                <th colspan="2"><button onclick="return confirm('정말 변경하시겠습니까?')">변경</button></th>
+            </tr>
+        </table>
+    </form>
+    <a class="main" href="{% url 'main' %}">🏠</a>
+</body>
+</html>

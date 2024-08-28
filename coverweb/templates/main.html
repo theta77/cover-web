@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoverWeb</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+<body>
+    <h1>메인</h1>
+    {% if request.user.is_authenticated %}
+        <p class="welcome"><strong>{{user.nick}}</strong>님, 환영합니다</p><br>
+        <div class="interface">
+            <a href="{% url 'upload' %}">업로드</a>
+            <a href="{% url 'info' request.user.username %}">회원 정보</a>
+        </div>
+    {% else %}
+        <div class="interface">
+            <a href="{% url 'signin' %}">로그인</a>
+            <a href="{% url 'signup' %}">회원가입</a>
+        </div>
+    {% endif %}
+    <div id="search">
+        <form method="post">
+            {% csrf_token %}
+            <select name="genre">
+                {% for i in genre %}
+                {% if search.0 == i %}
+                <option value="{{i}}" selected>{{i}}</option>
+                {% else %}
+                <option value="{{i}}">{{i}}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            <span class="search">
+                <input name="keyw" type="text" placeholder="검색어" value="{{search.1}}">
+                <button>🔍</button>
+            </span>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div id="video">
+        {% if videos|length == 0 %}
+            <p>검색 결과 없음</p>
+        {% else %}
+            {% for i in videos %}
+                <span class="video">
+                    <a href="{% url 'watch' i.0.idx %}">
+                        <img src="{{i.0.thumbnail.url}}" height="200"><br>
+                        <p>{{i.0.sub}}</p>
+                        <p>{{i.1.nick}}</p>
+                        <p>{{i.0.date}}</p>
+                    </a>
+                </span>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>

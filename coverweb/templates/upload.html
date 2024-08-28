@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'upload.css' %}">
+</head>
+<body>
+    <h1>업로드</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message.message}}</p>
+        {% endfor %}
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table border="1">
+            <tr>
+                <th>제목</th>
+                <th><input name="sub" type="text" value="{{sub}}"></th>
+            </tr>
+            <tr>
+                <th>설명</th>
+                <th><input name="info" type="text" value="{{info}}"></th>
+            </tr>
+            <tr>
+                <th>썸네일</th>
+                <th><input name="thumbnail" type="file" value="{{thumbnail}}"></th>
+            </tr>
+            <tr>
+                <th>영상</th>
+                <th><input name="video" type="file" value="{{video}}"></th>
+            </tr>
+            <tr>
+                <th>장르</th>
+                <th>
+                    <select name="genre">
+                        {% for i in genre %}
+                            <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+                    </select>
+                </th>
+            </tr>
+            <tr>
+                <th colspan="2"><button>업로드</button></th>
+            </tr>
+        </table>
+    </form>
+    <a class="main" href="{% url 'main' %}">🏠</a>
+</body>
+</html>

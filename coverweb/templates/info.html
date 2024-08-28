@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoverWeb</title>
+    <link rel="stylesheet" href="{% static 'info.css' %}">
+</head>
+<body>
+    <h1>{{user.username}}의 정보</h1>
+    <table border="1" class="info">
+        <tr>
+            <th>nick</th>
+            <th>{{user.nick}}</th>
+        </tr>
+        <tr>
+            <th>username</th>
+            <th>{{user.username}}</th>
+        </tr>
+        <tr>
+            <th>info</th>
+            <th>{{user.info}}</th>
+        </tr>
+        <tr>
+            <th>sub</th>
+            <th>{{sub}}</th>
+        </tr>
+    </table>
+    {% if request.user.is_authenticated %}
+        {% if request.user.username == user.username %}
+            <table border="0" class="interface">
+                <tr>
+                    <th><a href="{% url 'chinfo' %}">정보 수정</a></th>
+                    <th><a href="{% url 'chpass' %}">비밀번호 변경</a></th>
+                    <th><a href="{% url 'signout' %}">로그아웃</a></th>
+                    <th><a href="{% url 'deluser' %} " onclick="return confirm('정말 삭제하시겠습니까?')">계정 삭제</a></th>
+                </tr>
+            </table>
+        {% else %}
+            <a href="{% url 'subscribe' user.username 0 %}">{{subscribe}}</a>
+        {% endif %}
+    {% endif %}
+    <a class="main" href="{% url 'main' %}">🏠</a>
+</body>
+</html>

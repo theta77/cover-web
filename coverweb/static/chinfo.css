@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Pen+Script&display=swap');
+
+h1 {
+    font-family: "Jua", sans-serif;
+}
+.main {
+    text-decoration: none;
+    font-size: 50px;
+}
+table {
+    font-family: "Nanum Pen Script", cursive;
+}
+input {
+    width: 200px;
+    border: none;
+    font-family: "Nanum Pen Script", cursive;
+}
+textarea {
+    width: 200px;
+    border: none;
+    font-family: "Nanum Pen Script", cursive;
+}
+button {
+    width: 200px;
+    border: none;
+    background-color: white;
+    font-family: "Nanum Pen Script", cursive;
+}

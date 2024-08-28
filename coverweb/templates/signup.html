@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoverWeb</title>
+    <link rel="stylesheet" href="{% static 'signup.css' %}">
+</head>
+<body>
+    <h1>회원가입</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message.message}}</p>
+        {% endfor %}
+    {% endif %}
+    <form method="post" name="userinfo">
+        {% csrf_token %}
+        <table border="1">
+            <tr>
+                <th>닉네임</th>
+                <th><input name="nick" type="text" value="{{nick}}"></th>
+            </tr>
+            <tr>
+                <th>아이디</th>
+                <th><input name="username" type="text" value="{{username}}"></th>
+            </tr>
+            <tr>
+                <th>비밀번호</th>
+                <th><input name="password" type="password" value="{{password}}"></th>
+            </tr>
+            <tr>
+                <th>비밀번호 확인</th>
+                <th><input name="re-enter" type="password" value="{{re}}"></th>
+            </tr>
+            <tr>
+                <th>소개</th>
+                <th>
+                    <textarea name="info" type="text" placeholder="소개">{{info}}</textarea>
+                </th>
+            </tr>
+            <tr>
+                <th colspan="2"><button>회원가입</button></th>
+            </tr>
+        </table>
+    </form>
+    <a class="main" href="{% url 'main' %}">🏠</a>
+</body>
+</html>

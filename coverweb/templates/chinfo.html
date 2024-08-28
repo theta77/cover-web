@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoverWeb</title>
+    <link rel="stylesheet" href="{% static 'chinfo.css' %}"
+</head>
+<body>
+    <h1>정보 수정</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message.message}}</p>
+        {% endfor %}
+    {% endif %}
+    <form method="post" name="userinfo">
+        {% csrf_token %}
+        <table border="1">
+            <tr>
+                <th>닉네임</th>
+                <th>
+                    <input name="nick" type="text" value="{{nick}}">
+                </th>
+            </tr>
+            <tr>
+                <th>아이디</th>
+                <th>
+                    <input name="username" type="text" value="{{username}}">
+                </th>
+            </tr>
+            <tr>
+                <th>소개</th>
+                <th>
+                    <textarea name="info">{{info}}</textarea>
+                </th>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <button onclick="return confirm('정말 수정하시겠습니까?')">✔️</button>
+                </th>
+            </tr>
+        </table>
+    </form>
+    <a class="main" href="{% url 'main' %}">🏠</a>
+</body>
+</html>

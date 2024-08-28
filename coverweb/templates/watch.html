@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoverWeb</title>
+    <link rel="stylesheet" href="{% static 'watch.css' %}">
+</head>
+<body>
+    <video controls src="{{video.video.url}}"><source src="{{video.video}}"></video><br>
+    <div>
+        <p>
+            {{video.sub}}
+            {% if request.user.username == video.username %}
+                <a href="{% url 'chvideo' video.idx %}">수정</a>
+            {% endif %}
+        </p>
+        <span>
+            <span>
+                <a href="{% url 'info' user.username %}">{{user.nick}}</a>
+            </span>
+            <span>{{sub}}</span>
+            <span>
+                {% if request.user.is_authenticated %}
+                    {% if request.user.username == user.username %}
+                        <strong>내 채널</strong>
+                    {% else %}
+                        <a href="{% url 'subscribe' user.username video.idx %}">{{subscribe}}</a>
+                    {% endif %}
+                {% else %}
+                    <a onclick="alert('로그인 후 이용해주세요')">🤍</a>
+                {% endif %}
+            </span>
+        </span>
+        <span>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'like' video.idx %}">{{liking}}</a> {{like}}
+            {% else %}
+                <a onclick="alert('로그인 후 이용해주세요')">✊🏻</a> {{like}}
+            {% endif %}
+        </span>
+    </div>
+    <a class="main" href="{% url 'main' %}">🏠</a>
+</body>
+</html>

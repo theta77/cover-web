@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Pen+Script&display=swap');
+
+h1 {
+    font-family: "Jua", sans-serif;
+    color: crimson;
+}
+.main {
+    text-decoration: none;
+    font-size: 50px;
+}
